@@ -49,20 +49,36 @@ bool HighPrecision::operator>(const HighPrecision& hpnumber) const {
     if (this->negative_ != hpnumber.negative_) {
         return hpnumber.negative_;
     }
-    if (this->number_.length() != hpnumber.number_.length()) {
-        return this->number_.length() > hpnumber.number_.length();
+    if (this->negative_) {
+        if (this->number_.length() != hpnumber.number_.length()) {
+            return this->number_.length() < hpnumber.number_.length();
+        }
+        return this->number_ < hpnumber.number_;
     }
-    return this->number_ > hpnumber.number_;
+    else {
+        if (this->number_.length() != hpnumber.number_.length()) {
+            return this->number_.length() > hpnumber.number_.length();
+        }
+        return this->number_ > hpnumber.number_;
+    }
 }
 
 bool HighPrecision::operator<(const HighPrecision& hpnumber) const {
     if (this->negative_ != hpnumber.negative_) {
-        return hpnumber.negative_;
+        return this->negative_;
     }
-    if (this->number_.length() != hpnumber.number_.length()) {
-        return this->number_.length() < hpnumber.number_.length();
+    if (this->negative_) {
+        if (this->number_.length() != hpnumber.number_.length()) {
+            return this->number_.length() > hpnumber.number_.length();
+        }
+        return this->number_ > hpnumber.number_;
     }
-    return this->number_ < hpnumber.number_;
+    else {
+        if (this->number_.length() != hpnumber.number_.length()) {
+            return this->number_.length() < hpnumber.number_.length();
+        }
+        return this->number_ < hpnumber.number_;
+    }
 }
 
 bool HighPrecision::operator>=(const HighPrecision& hpnumber) const {

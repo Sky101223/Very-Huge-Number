@@ -21,8 +21,7 @@ std::istream& operator>>(std::istream& stream, HighPrecision& hpnumber) {
     if (input[0] == '-') {
         hpnumber.negative_ = true;
         hpnumber.number_ = input.substr(1);
-    }
-    else {
+    } else {
         hpnumber.negative_ = false;
         hpnumber.number_ = input;
     }
@@ -38,7 +37,8 @@ HighPrecision& HighPrecision::operator=(const HighPrecision& another) {
 }
 
 bool HighPrecision::operator==(const HighPrecision& hpnumber) const {
-    return this->number_ == hpnumber.number_ && this->negative_ == hpnumber.negative_;
+    return this->number_ == hpnumber.number_ &&
+           this->negative_ == hpnumber.negative_;
 }
 
 bool HighPrecision::operator!=(const HighPrecision& hpnumber) const {
@@ -54,8 +54,7 @@ bool HighPrecision::operator>(const HighPrecision& hpnumber) const {
             return this->number_.length() < hpnumber.number_.length();
         }
         return this->number_ < hpnumber.number_;
-    }
-    else {
+    } else {
         if (this->number_.length() != hpnumber.number_.length()) {
             return this->number_.length() > hpnumber.number_.length();
         }
@@ -72,8 +71,7 @@ bool HighPrecision::operator<(const HighPrecision& hpnumber) const {
             return this->number_.length() > hpnumber.number_.length();
         }
         return this->number_ > hpnumber.number_;
-    }
-    else {
+    } else {
         if (this->number_.length() != hpnumber.number_.length()) {
             return this->number_.length() < hpnumber.number_.length();
         }
@@ -105,7 +103,8 @@ HighPrecision HighPrecision::operator+(const HighPrecision& y) const {
             Y.push_back(y.number_[y.number_.length() - 1 - i] - '0');
         }
 
-        for (; resultLength < X.size() || resultLength < Y.size(); resultLength++) {
+        for (; resultLength < X.size() || resultLength < Y.size();
+             resultLength++) {
             int32_t xValue = (resultLength < X.size()) ? X[resultLength] : 0;
             int32_t yValue = (resultLength < Y.size()) ? Y[resultLength] : 0;
             R.push_back(xValue + yValue + carry);
@@ -126,8 +125,7 @@ HighPrecision HighPrecision::operator+(const HighPrecision& y) const {
         }
 
         return HighPrecision(result);
-    }
-    else {
+    } else {
         HighPrecision abs_this = *this;
         abs_this.negative_ = false;
         HighPrecision abs_y = y;
@@ -137,8 +135,7 @@ HighPrecision HighPrecision::operator+(const HighPrecision& y) const {
             HighPrecision result = abs_this - abs_y;
             result.negative_ = this->negative_;
             return result;
-        }
-        else {
+        } else {
             HighPrecision result = abs_y - abs_this;
             result.negative_ = y.negative_;
             return result;
@@ -170,8 +167,7 @@ HighPrecision HighPrecision::operator-(const HighPrecision& y) const {
         if (*this >= y) {
             larger = *this;
             smaller = y;
-        }
-        else {
+        } else {
             larger = y;
             smaller = *this;
             resultNegative = true;
@@ -185,7 +181,8 @@ HighPrecision HighPrecision::operator-(const HighPrecision& y) const {
         }
 
         for (std::size_t i = 0; i < smaller.number_.length(); i++) {
-            Y.push_back(smaller.number_[smaller.number_.length() - 1 - i] - '0');
+            Y.push_back(smaller.number_[smaller.number_.length() - 1 - i] -
+                        '0');
         }
 
         for (std::size_t i = 0; i < X.size(); i++) {
@@ -196,8 +193,7 @@ HighPrecision HighPrecision::operator-(const HighPrecision& y) const {
             if (diff < 0) {
                 diff += 10;
                 borrow = 1;
-            }
-            else {
+            } else {
                 borrow = 0;
             }
 
@@ -219,8 +215,7 @@ HighPrecision HighPrecision::operator-(const HighPrecision& y) const {
         }
 
         return HighPrecision(result);
-    }
-    else {
+    } else {
         HighPrecision abs_this = *this;
         abs_this.negative_ = false;
         HighPrecision abs_y = y;
